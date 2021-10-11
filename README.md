@@ -31,7 +31,7 @@ git clone https://github.com/bscarpari/simpl-schemas-study.git
 
 ### 🛠️ Stack
 
-* Simpl-schema: um pacote NPM (usado em aplicativos Meteor e NodeJS)
+* Simpl-schema: um pacote NPM que valida a entrada de dados de acordo com um esquema (usado em aplicações Meteor e NodeJS)
 * MeteorJS: framework JavaScript para construções de aplicações fullstack.
 * MongoDB: banco de dados NoSQL orientado a documentos.
 

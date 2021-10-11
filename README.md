@@ -2,14 +2,14 @@
 
 ## 📋 Pré-requisitos
 
-De que coisas você precisa para instalar o software e como instalá-lo?
+De que coisas você precisa para instalar o software e como instalá-lo.
 
 ### Instale o MongoDB
 
 ** https://docs.mongodb.com/manual/tutorial/ **
 
 
-### Instalae o Meteor
+### Instale o Meteor
 
 ```
 npm install -g meteor

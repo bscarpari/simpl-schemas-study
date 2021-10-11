@@ -1,9 +1,5 @@
 # Estudando simpl-schemas
 
-## 🚀 Começando
-
-Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
-
 ## 📋 Pré-requisitos
 
 De que coisas você precisa para instalar o software e como instalá-lo?
@@ -18,6 +14,10 @@ De que coisas você precisa para instalar o software e como instalá-lo?
 ```
 npm install -g meteor
 ```
+
+## 🚀 Começando
+
+Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
 
 ### Clone o repositório com:
 

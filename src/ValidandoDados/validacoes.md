@@ -26,7 +26,7 @@ Primeiramente passamos um **objeto normal** ou **objeto modificador mongo** ($se
 3. Com contexto de validação nomeada, sem gerar erros
 
 ```js
-  schema.namedContext('someUniqueString).validate()
+  schema.namedContext('someUniqueString').validate()
 ```
 
 4. Com contexto de validação padrão, não lançando erros

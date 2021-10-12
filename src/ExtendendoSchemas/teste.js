@@ -9,7 +9,8 @@ const person_schema = new SimpleSchema({
     },
     name: {
         type: String,
-        regEx: /^[a-zA-Z\sà-úÀ-Ú]+$/ //Expressão Regular que aceita letras, acentos e espaços
+        regEx: /^[a-zA-Z\sà-úÀ-Ú]+$/,
+        min: 20 //Expressão Regular que aceita letras, acentos e espaços
     },
 
     /*
@@ -25,7 +26,7 @@ const person_schema = new SimpleSchema({
 const student_schema = new SimpleSchema({
     name: {
         type: String,
-        min: 16
+        min: 6
     },
     grade: SimpleSchema.oneOf(
         {
@@ -42,7 +43,7 @@ const student_schema = new SimpleSchema({
 
 const test_object = {
     id: "identificação",
-    name: "João Vitor 123456789", 
+    name: "João Vitor", 
     email: "name@email.com",
     grade: "F"
 };

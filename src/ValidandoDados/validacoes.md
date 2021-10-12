@@ -74,7 +74,7 @@ Contexto de validação sem nome não é persistido em qualquer lugar. Geralment
 
 ### Validando um objeto
 
-Para validar um objeto contra o esquema em um contexto de validação, chame `validationContextInstance.validate (obj, options)`. Este método retorna `true` se o objeto é válido de acordo com o esquema ou `false` se não é.
+Para validar um objeto de acordo o esquema, chame `validationContextInstance.validate (obj, options)`. Este método retorna `true` se o objeto é válido de acordo com o esquema ou `false` se não é.
 
 Ele também armazena uma lista de campos inválidos e mensagens de erro correspondentes no objeto de contexto e faz com que os métodos reativos reajam se você injetar reatividade do Tracker.
 

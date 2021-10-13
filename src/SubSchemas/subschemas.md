@@ -24,7 +24,7 @@ const person_schema = new SimpleSchema({
 
 Embora **não** seja **recomendado**, é possível declarar um **schema** **dentro** de outro **schema**, ou pelo menos um campo do tipo Objeto.
 
-### O que não fazer :x:
+### :x: O que não fazer :x:
 
 
 ```javascript
@@ -38,7 +38,7 @@ const person_schema = new SimpleSchema({
 });
 ```
 
-### <span style="color:green">Método Correto</span>
+### :heavy_check_mark: Método Correto :heavy_check_mark:
 
 ```javascript
 const person_schema = new SimpleSchema({

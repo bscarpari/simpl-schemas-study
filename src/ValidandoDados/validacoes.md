@@ -311,19 +311,6 @@ simpleSchemaInstance.messageBox.messages({
 });
 ```
 
-## Outros métodos de contexto de validação 
-
-`myContext.keyIsInvalid (key)` retorna verdadeiro se a chave especificada é atualmente 
-inválida, ou falso se é válida. Este é um método reativo. 
-
-`myContext.keyErrorMessage (key)` retorna a mensagem de erro para a 
-chave especificada se for inválida. Se for válido, este método retorna uma string vazia. Este 
-é um método reativo. 
-
-Chame `myContext.reset ()` se você precisar redefinir o contexto de validação, limpando todas as mensagens de campo inválidas e tornando-as válidas. 
-
-`myContext.name` é definido como o nome do contexto, se for um contexto nomeado. Crie contextos nomeados chamando `schema.namedContext (name)` ou `new ValidationContext (schema, name)`. 
-
 ## Outros Métodos SimpleSchema
 
 Chame `MySchema.schema ([key])` para obter o objeto de definição de esquema. Se você especificar uma chave, apenas a definição do esquema dessa chave será retornada. 

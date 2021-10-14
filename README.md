@@ -8,13 +8,6 @@ De que coisas você precisa para instalar o software e como instalá-lo.
 
 ** https://docs.mongodb.com/manual/tutorial/ **
 
-
-### Instale o Meteor
-
-```
-npm install -g meteor
-```
-
 ## 🚀 Começando
 
 Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
@@ -25,11 +18,27 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 git clone https://github.com/bscarpari/simpl-schemas-study.git
 ```
 
-### Execute isso no terminal
+## Testes unitários
+
+### 1. Instale as dependências:
 
 ```
 npm install
+``` 
+
+### 2. Use o `require` sempre na 1a linha dos testes:
+
 ```
+  const SimpleSchema = require("simpl-schema") //nome da instância de acordo com a sua preferência 
+```
+
+Com a extensão **Code Runner** em mãos (Disponível no VSCODE)
+
+### 3. Execute os testes através de :
+
+`CTRL + ALT + N` ou `F1 + run code` para iniciar
+
+`CTRL + ALT + M` ou `F1 + stop` para iniciar
 
 ## 🛠️ Stack
 
@@ -38,5 +47,4 @@ npm install
 * MongoDB: banco de dados NoSQL orientado a documentos.
 
 ---
-⌨️ [Bruno Scarpari](https://github.com/bscarpari/) 
-⌨️ [Kainã Mazim](https://github.com/KaMazim) 
+⌨️ [Bruno Scarpari](https://github.com/bscarpari/)<br/>⌨️ [Kainã Mazim](https://github.com/KaMazim) 

@@ -1,8 +1,9 @@
-### O que é context?
+# O que é context?
 
 Um contexto é basicamente o **lugar** onde o simpl-schema armazena o **resultado da validação** de uma operação de validação. Portanto, se você precisa salvar as mensagens de erro de uma instância de um formulário (por exemplo, porque existem várias instâncias do mesmo formulário em uma página), você precisa criar e manter um **contexto dedicado** a cada instância. Se você não se importa em manter as mensagens de erro de uma instância de um formulário, pode reutilizar o mesmo contexto ou usar o contexto padrão.
+<br/><br/>
 
-### Maneiras de validar: 
+## Maneiras de validar: 
 
 1. Com contexto descartável, lançando avisos para erros de validações:
 
@@ -29,8 +30,9 @@ Um contexto é basicamente o **lugar** onde o simpl-schema armazena o **resultad
 ```
 
 Um contexto de validação fornece **métodos reativos** para validar e verificar o status de validação de um objeto específico.
+<br/><br/>
 
-#### Contexto de validação nomeado:
+## Contexto de validação nomeado:
 
 É recomendável usar um contexto de **validação nomeado**. Assim, o contexto é persistido automaticamente por **nome**, permitindo métodos reativos.
 
@@ -48,8 +50,9 @@ Um contexto de validação fornece **métodos reativos** para validar e verifica
 ```js 
   namedContext() == namedContext('default')
 ```
+<br/>
 
-#### Contexto de validação sem nome
+## Contexto de validação sem nome
 
 Para obter um contexto de validação sem nome, chame `newContext ()`:
 
@@ -64,6 +67,8 @@ const myValidationContext = schema.newContext ();
 ```
 
 Contexto de validação sem nome não é persistido em qualquer lugar. Geralmente, serve para ver se um documento é válido, ou seja, não há necessidade de métodos reativos neste caso (permanecem na memória local)
+<br/><br/>
+
 
 ## Outros métodos de contexto de validação 
 

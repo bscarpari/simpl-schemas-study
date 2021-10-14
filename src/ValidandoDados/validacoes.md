@@ -1,18 +1,23 @@
-## Validando Dados
+# Validando Dados
 
 ## Modo de depuração 
 
-Defina `SimpleSchema.debug = true` em seu aplicativo antes de criar qualquer contexto de validação nomeado para fazer com que todos os contextos de validação nomeados registrem automaticamente todos os erros de chave inválida no console do navegador. Isso pode ser útil durante o desenvolvimento de um aplicativo para descobrir por que certas ações estão falhando na validação. 
+Defina  `SimpleSchema.debug = true`  em seu aplicativo antes de criar qualquer contexto de validação nomeado para fazer com que todos os contextos de validação nomeados registrem automaticamente todos os erros de chave inválida no console do navegador. Isso pode ser útil durante o desenvolvimento de um aplicativo para descobrir por que certas ações estão falhando na validação. 
 
-### Objeto para validar 
+<br/>
+
+## Objeto para validar 
 
 Primeiramente passamos um **objeto normal** ou **objeto modificador mongo** ($set).
 
-### Exemplo ($set): 
+#### Exemplo ($set): 
 
 ```js
   { $set: { <field1>: <value1>, ... } 
 ```
+
+<br/>
+
 ### Validando um objeto
 
 Para validar um objeto de acordo o esquema, chame `validationContextInstance.validate (obj, options)`. Este método retorna `true` se o objeto é válido de acordo com o esquema ou `false` se não é.
@@ -20,12 +25,14 @@ Para validar um objeto de acordo o esquema, chame `validationContextInstance.val
 Ele também armazena uma lista de campos inválidos e mensagens de erro correspondentes no objeto de contexto e faz com que os métodos reativos reajam se você injetar reatividade do Tracker.
 
 `myContext.isValid()` para ver se o último objeto passado para `validate()` foi considerado válido, retornando `true` ou `false`
+<br/><br/>
 
-### Validando algumas chaves em um objeto
 
-##### Necessidade de (re) validar certas chaves enquanto deixa quaisquer erros para outras chaves inalteradas.
+## Validando algumas chaves em um objeto
 
-Por exemplo, erros em um formulário, mas você busca re (validar) apenas o campo inválido que o usuário está digitando no momento.
+Necessidade de (re) validar certas chaves enquanto deixa quaisquer erros para outras chaves inalteradas. Por exemplo, erros em um formulário, mas você busca re (validar) apenas o campo inválido que o usuário está digitando no momento.
+<br/><br/>
+
 
 ### Opções de Validação
 
@@ -34,14 +41,19 @@ Por exemplo, erros em um formulário, mas você busca re (validar) apenas o camp
 - `modifier`: validando objeto modificador mongo ($set). `false` por padrão.
 
 - `upsert`: validando objeto modificador mongo ($set) com operadores upsert. `false` por padrão.
+<br/><br/>
 
-#### Operadores upsert
+
+
+### Operadores upsert
 
 - Sempre inserir a informação no banco de dados e não importa se ela já existe ou não;
 - Se já existe um dado, realiza `update`, se não existe, realiza a operação de `insert`;
 - Nunca retorna erro.
+<br/><br/>
 
-##### Exemplo: 
+
+### Exemplo: 
 
 - **upsert = update + insert**
 
@@ -55,6 +67,7 @@ Por exemplo, erros em um formulário, mas você busca re (validar) apenas o camp
 - `ignore`: matriz de tipos de erros de validação a serem ignorados.
 
 - `keys`: matriz de chaves para validar. Se não for fornecido, re(valida) todo o objeto.
+<br/>
 
 ### Validando e lançando ValidationErrors 
 
@@ -65,6 +78,7 @@ Por exemplo, erros em um formulário, mas você busca re (validar) apenas o camp
 - Chame `mySimpleSchema.validator ()` para obter uma **função** que chama `mySimpleSchema.validate` para qualquer objeto que seja passado a ela. Isso significa que você pode fazer `validate: mySimpleSchema.validator ()` no  pacote [mdg: validated-method] (https://github.com/meteor/validated-method). 
 
 - Chame `mySimpleSchema.getFormValidator ()` para obter uma **função** que valida qualquer objeto que é passado a ela, retornando os erros. A função retornada é compatível com a [Especificação de Formulário Composável] (http://forms.dairystatedesigns.com/user/validation/). 
+<br/>
 
 ### Personalizar o erro gerado
 
@@ -92,6 +106,7 @@ SimpleSchema.defineValidationErrorTransform((error) => {
   return ddpError;
 });
 ```
+<br/>
 
 ### Validação de campo personalizado
 
@@ -133,26 +148,29 @@ Todas as funções de validação personalizadas **funcionam da mesma maneira**.
 
 Em sua função de validação personalizada, `this` fornece as seguintes propriedades: 
 
--` key`: O nome da chave do esquema (por exemplo, " 
-address.0.street ") - `genericKey`: O nome genérico da chave do esquema (por exemplo , "endereços. $. rua") 
+- `key`: O nome da chave do esquema (por exemplo, " address.0.street ")
 
-- `definição`: O objeto de definição de esquema. 
+- `genericKey`: O nome genérico da chave do esquema (por exemplo , "address.$. street") 
+
+- `definition`: O objeto de definição de esquema. 
 
 - `isSet`: O objeto sendo validado tem esta chave definida? 
 
-- `valor`: o valor a ser validado. 
+- `value`: o valor a ser validado. 
 
 - `operator`: o operador Mongo para o qual estamos fazendo validação. Pode ser `null`. 
 
 - `validationContext`: A instância atual de` ValidationContext` 
 
-- `field ()`: Use este método para obter informações sobre outros campos. Passe um nome de campo (chave de esquema não genérica) como o único argumento. O objeto de retorno terá as propriedades `isSet`,` value` e `operator` para esse campo.
+- `field()`: Use este método para obter informações sobre outros campos. Passe um nome de campo (chave de esquema não genérica) como o único argumento. O objeto de retorno terá as propriedades `isSet`,` value` e `operator` para esse campo.
 
 - `siblingField ()`: Use este método para obter informações sobre outros campos que possuem o mesmo objeto pai. Funciona da mesma maneira que `field ()`. Isso é útil quando você usa subesquemas ou quando está lidando com matrizes de objetos. 
 
 - `addValidationErrors (errors)`: Chame isso para adicionar erros de validação para qualquer chave. Em geral, você deve usar isso para adicionar erros para outras chaves. Para adicionar um erro à chave atual, retorne a string do tipo de erro. Se você usar isso para adicionar um erro para a chave atual, retorne `false` de sua função de validação personalizada. 
 
 **NOTA:** validação personalizada no servidor e, em seguida, exibir erros de volta no cliente, consulte a seção [Validação personalizada assíncrona no cliente] (https://www.npmjs.com/package/simpl-schema#asynchronous-custom-validation-on-the-client).
+<br/><br/>
+
 
 ### Validadores de documento inteiro personalizados 
 
@@ -198,20 +216,22 @@ Validadores de documentos inteiros têm disponível o seguinte no contexto` this
 - `this.schema`: a instância do esquema.
 
 - `this.validationContext`: A instância` ValidationContext`. 
+<br/><br/>
+
 
 ### Adicionando manualmente um erro de validação 
 
 Se você deseja exibir reativamente um erro de validação arbitrário e não é possível usar uma função de validação personalizada (talvez você tenha que chamar uma função `onSubmit` ou esperar por resultados assíncronos), você pode adicionar um ou mais erros para um contexto de validação a qualquer momento chamando `myContext.addValidationErrors (errors)`, onde `errors` é uma matriz de objetos de erro com o seguinte formato: 
 
 ```js
-{name: key, type: errorType, value: anyValue}
+  {name: key, type: errorType, value: anyValue}
 ```
 
 - `name`: A chave do esquema conforme especificado no esquema. 
 
 - `type`: o tipo de erro. Qualquer string que você quiser, ou uma das strings na lista `SimpleSchema.ErrorTypes`.
 
-- `valor`: opcional. O valor que não era válido. Será usado para substituir o espaço reservado `[valor]` em mensagens de erro. 
+- `value`: opcional. O valor que não era válido. Será usado para substituir o espaço reservado `[value]` em mensagens de erro. 
 
 Se você usar uma string personalizada para `type`, certifique-se de definir uma mensagem para ela. Veja [Customizing Validation Messages] (https://www.npmjs.com/package/simpl-schema#customizing-validation-messages). 
 
@@ -230,6 +250,7 @@ myValidationContext.addValidationErrors([
   { name: "password", type: "wrongPassword" },
 ]);
 ```
+<br/>
 
 ### Validação personalizada assíncrona no cliente
 
@@ -262,6 +283,8 @@ Observe que estamos chamando nosso método de servidor "accountsIsUsernameAvaila
 Isso não muda o fato de que a validação é síncrona. Se você usar isso com um formulário automático e não houver erros de validação, o formulário ainda será enviado. No entanto, a criação do usuário falharia e um ou dois segundos depois, o formulário exibiria o erro "notUnique", portanto, o resultado final é muito semelhante à validação assíncrona real. 
 
 Você pode usar uma técnica semelhante a esta para solucionar problemas de assincronicidade no código do cliente e do servidor. 
+<br/><br/>
+
 
 ### Obtendo uma lista de chaves inválidas e mensagens de erro de validação 
 
@@ -276,6 +299,8 @@ Chame `myValidationContext.validationErrors ()` para obter o conjunto completo d
 Também pode haver uma propriedade `value`, que é o valor inválido. 
 
 Pode haver uma propriedade `message`, mas geralmente a mensagem de erro é construída a partir de modelos de mensagem. Você deve chamar `ctxt.keyErrorMessage (key)` para obter uma string de mensagem reativa ao invés de usar `error.message` diretamente. 
+<br/><br/>
+
 
 ## Personalizando mensagens de validação
 
@@ -310,12 +335,15 @@ simpleSchemaInstance.messageBox.messages({
   },
 });
 ```
+<br/>
 
 ## Outros Métodos SimpleSchema
 
 Chame `MySchema.schema ([key])` para obter o objeto de definição de esquema. Se você especificar uma chave, apenas a definição do esquema dessa chave será retornada. 
 
 Observe que isso pode não corresponder exatamente ao que você passou para o construtor SimpleSchema. O objeto de definição de esquema é normalizado internamente e este método retorna a cópia normalizada. 
+<br/><br/>
+
 
 ## Limpando Objetos 
 
@@ -366,11 +394,16 @@ const schema = new SimpleSchema(
 
 NOTA: O pacote Collection2 sempre chama `clean` antes de cada inserção, atualização ou upsert.
 
+<br/>
+
 ## Datas 
 
 Para consistência, se você se preocupa apenas com a parte da data (ano, mês, data) e não com a hora, use um objeto `Data` definido para a data desejada à meia-noite UTC _ (observe, a função de limpeza ganhou ' t retirar o tempo) _. Isso vale para datas `min` e `max` também. Se você se preocupa apenas com a parte da data e deseja especificar uma data mínima, `min` deve ser definido como meia-noite UTC na data mínima (inclusive). 
 
 Seguir essas regras garante a máxima interoperabilidade com entradas de data HTML5 e geralmente faz sentido. 
+
+<br/>
+
 
 ## Exemplos de códigos de boas práticas 
 
@@ -438,6 +471,8 @@ MySchema = new SimpleSchema({
 });
 ```
 
+<br/>
+
 ### Tradução de mensagens de expressão regular 
 
 As mensagens embutidas em inglês para expressões regulares usam uma função, portanto, para fornecer mensagens semelhantes em outro idioma, você também pode usar uma função com uma instrução switch: 
@@ -475,6 +510,8 @@ messages: {
   }
 }
 ```
+
+<br/>
 
 ## Estendendo as opções de esquema
 

@@ -39,3 +39,42 @@ name_schema {
 }
 */
 ```
+
+## getObjectSchema 
+
+Cria um novo **schema**, utilizando o **Objeto** que foi selecionado como parâmetro.
+
+```javascript
+const person_schema = new SimpleSchema({
+    name: String,
+    address: Object,
+    'address.city': String
+});
+
+const address_schema = person_schema.getObjectSchema('address');
+
+/*
+addresss_schema {
+    city: String
+}
+*/
+```
+
+Caso fosse usado **pick** ou **omit** o resultado não seria o mesmo:
+
+```javascript
+const person_schema = new SimpleSchema({
+    name: String,
+    address: Object,
+    'address.city': String
+});
+
+const address_schema = person_schema.pick('address');
+
+/*
+addresss_schema {
+    address: Object
+    'address.city': String
+}
+*/
+```

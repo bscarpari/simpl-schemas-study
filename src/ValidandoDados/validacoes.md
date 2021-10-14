@@ -2,7 +2,7 @@
 
 ## Modo de depuração 
 
-Defina` SimpleSchema.debug = true` em seu aplicativo antes de criar qualquer contexto de validação nomeado para fazer com que todos os contextos de validação nomeados registrem automaticamente todos os erros de chave inválida no console do navegador. Isso pode ser útil durante o desenvolvimento de um aplicativo para descobrir por que certas ações estão falhando na validação. 
+Defina `SimpleSchema.debug = true` em seu aplicativo antes de criar qualquer contexto de validação nomeado para fazer com que todos os contextos de validação nomeados registrem automaticamente todos os erros de chave inválida no console do navegador. Isso pode ser útil durante o desenvolvimento de um aplicativo para descobrir por que certas ações estão falhando na validação. 
 
 ### Objeto para validar 
 
@@ -55,6 +55,11 @@ Um contexto de validação fornece **métodos reativos** para validar e verifica
   const userFormValidationContext = schema.namedContext("userForm");
 ```
 
+**OBS.:** 
+```js 
+  namedContext() == namedContext('default')
+```
+
 #### Contexto de validação sem nome
 
 Para obter um contexto de validação sem nome, chame `newContext ()`:
@@ -67,11 +72,6 @@ const schema = new SimpleSchema({
 });
 
 const myValidationContext = schema.newContext ();
-```
-
-**OBS.:** 
-```js 
-  namedContext() == namedContext('default')
 ```
 
 Contexto de validação sem nome não é persistido em qualquer lugar. Geralmente, serve para ver se um documento é válido, ou seja, não há necessidade de métodos reativos neste caso (permanecem na memória local)
@@ -123,7 +123,7 @@ Por exemplo, erros em um formulário, mas você busca re (validar) apenas o camp
 
 - Chame `mySimpleSchema.validate (obj, options)` para validar `obj` de acordo com o esquema e lançar um `ValidationError` se for inválido. 
 
-- Chame a função estática `SimpleSchema.validate (obj, schema, options)` como atalho para `mySimpleSchema.validate` se não quiser criar` mySimpleSchema` primeiro. O argumento `schema` pode ser apenas o objeto schema, caso em que será passado para o construtor` SimpleSchema` para você. É como `check (obj, schema)`, mas sem a dependência `check` e com a capacidade de passar todos os **detalhes do erro** do esquema de volta para um retorno de chamada no client-side.
+- Chame a função estática `SimpleSchema.validate (obj, schema, options)` como atalho para `mySimpleSchema.validate` se não quiser criar `mySimpleSchema` primeiro. O argumento `schema` pode ser apenas o objeto schema, caso em que será passado para o construtor `SimpleSchema` para você. É como `check (obj, schema)`, mas sem a dependência `check` e com a capacidade de passar todos os **detalhes do erro** do esquema de volta para um retorno de chamada no client-side.
 
 - Chame `mySimpleSchema.validator ()` para obter uma **função** que chama `mySimpleSchema.validate` para qualquer objeto que seja passado a ela. Isso significa que você pode fazer `validate: mySimpleSchema.validator ()` no  pacote [mdg: validated-method] (https://github.com/meteor/validated-method). 
 
@@ -270,7 +270,7 @@ Se você deseja exibir reativamente um erro de validação arbitrário e não é
 {name: key, type: errorType, value: anyValue}
 ```
 
--` name`: A chave do esquema conforme especificado no esquema. 
+- `name`: A chave do esquema conforme especificado no esquema. 
 
 - `type`: o tipo de erro. Qualquer string que você quiser, ou uma das strings na lista `SimpleSchema.ErrorTypes`.
 
@@ -296,7 +296,7 @@ myValidationContext.addValidationErrors([
 
 ### Validação personalizada assíncrona no cliente
 
-NOTA: Para usar a opção `unique` neste exemplo, você precisa estar em um aplicativo Meteor com o pacote` aldeed: schema-index` adicionado. 
+NOTA: Para usar a opção `unique` neste exemplo, você precisa estar em um aplicativo Meteor com o pacote `aldeed: schema-index` adicionado. 
 
 A validação é executada de forma síncrona por vários motivos, e provavelmente sempre será. Isso torna difícil esperar por resultados assíncronos como parte da validação customizada. Aqui está um exemplo de como você pode validar que um nome de usuário é único no cliente, sem publicar todos os nomes de usuário para cada cliente: 
 
@@ -320,7 +320,7 @@ username: {
 }
 ```
 
-Observe que estamos chamando nosso método de servidor "accountsIsUsernameAvailable" e aguardando um resultado assíncrono, que é um booleano que indica se esse nome de usuário está disponível. Se for usado, invalidamos manualmente a chave `username` com um erro" notUnique ".
+Observe que estamos chamando nosso método de servidor "accountsIsUsernameAvailable" e aguardando um resultado assíncrono, que é um booleano que indica se esse nome de usuário está disponível. Se for usado, invalidamos manualmente a chave `username` com um erro "notUnique".
 
 Isso não muda o fato de que a validação é síncrona. Se você usar isso com um formulário automático e não houver erros de validação, o formulário ainda será enviado. No entanto, a criação do usuário falharia e um ou dois segundos depois, o formulário exibiria o erro "notUnique", portanto, o resultado final é muito semelhante à validação assíncrona real. 
 
@@ -423,7 +423,7 @@ A função `clean` leva o objeto a ser limpo como seu primeiro argumento e as se
 
 - `getAutoValues`: Executar funções` autoValue` e injetar valores automáticos e `defaultValue`? Verdadeiro por padrão.
 
-- `extendAutoValueContext`: Este objeto será adicionado ao contexto` this` das funções autoValue. `extendAutoValueContext` pode ser usado para fornecer informações valiosas adicionais às funções` autoValue`, como `userId`. (Observe que as operações feitas usando o pacote Collection2 adicionam automaticamente `userId` ao contexto` autoValue`.) 
+- `extendAutoValueContext`: Este objeto será adicionado ao contexto `this` das funções autoValue. `extendAutoValueContext` pode ser usado para fornecer informações valiosas adicionais às funções `autoValue`, como `userId`. (Observe que as operações feitas usando o pacote Collection2 adicionam automaticamente `userId` ao contexto `autoValue`.) 
 
 Você também pode definir padrões para qualquer uma dessas opções nas opções do construtor SimpleSchema: 
 
@@ -440,12 +440,11 @@ const schema = new SimpleSchema(
 );
 ```
 
-NOTA: O pacote Collection2 sempre chama` clean` antes de cada inserção, atualização ou upsert.
+NOTA: O pacote Collection2 sempre chama `clean` antes de cada inserção, atualização ou upsert.
 
 ## Datas 
 
-Para consistência, se você se preocupa apenas com a parte da data (ano, mês, data) e não com a hora, use um objeto `Data` definido para a data desejada à meia-noite UTC _ (observe, a função de limpeza ganhou ' t retirar o tempo) _. Isso vale para datas `min` e` max` também. Se você se preocupa apenas com a 
-parte da data e deseja especificar uma data mínima, `min` deve ser definido como meia-noite UTC na data mínima (inclusive). 
+Para consistência, se você se preocupa apenas com a parte da data (ano, mês, data) e não com a hora, use um objeto `Data` definido para a data desejada à meia-noite UTC _ (observe, a função de limpeza ganhou ' t retirar o tempo) _. Isso vale para datas `min` e `max` também. Se você se preocupa apenas com a parte da data e deseja especificar uma data mínima, `min` deve ser definido como meia-noite UTC na data mínima (inclusive). 
 
 Seguir essas regras garante a máxima interoperabilidade com entradas de data HTML5 e geralmente faz sentido. 
 

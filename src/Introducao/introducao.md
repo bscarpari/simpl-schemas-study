@@ -10,6 +10,7 @@ new SimpleSchema({
 }).validate({
   name: 2,
 });
+  //lança um erro direto
 ``` 
 
 ### Validar uma matriz de objetos e lançar um erro
@@ -22,17 +23,19 @@ import SimpleSchema from "simpl-schema";
 new SimpleSchema({
   name: String,
 }).validate([{ name: "Bill" }, { name: 2 }]);
+//Neste caso, o "name: 2" lança erro.
 ``` 
 
-### Validar um argumento do método Meteor e satisfazer `audit-argument-checks` 
+### Validar um argumento do método Meteor e satisfazer que seja verificado
 
-Para evitar erros sobre não verificar todos os argumentos quando você está usando SimpleSchema para validar argumentos do método Meteor, você deve passar `check` como uma opção ao criar sua instância SimpleSchema. 
+Para evitar erros sobre não verificar **todos os argumentos** quando você está usando SimpleSchema, você deve passar `check` como uma opção ao criar sua instância SimpleSchema. 
 
 ```js 
 import SimpleSchema from "simpl-schema";
 import { check } from "meteor/check";
 import { Meteor } from "meteor/meteor";
 
+//1) Especificação do método meteor Error
 SimpleSchema.defineValidationErrorTransform((error) => {
   const ddpError = new Meteor.Error(error.message);
   ddpError.error = "validation-error";
@@ -40,14 +43,15 @@ SimpleSchema.defineValidationErrorTransform((error) => {
   return ddpError;
 });
 
+//2) Instância criada com "check"
 const myMethodObjArgSchema = new SimpleSchema({ name: String }, { check });
 
+//3) Chamando a validação da instância
 Meteor.methods({
   myMethod(obj) {
     myMethodObjArgSchema.validate(obj);
-	// Agora faça outras coisas de método sabendo que obj satisfaz o esquema 
   }, 
-}); 
+});
 ``` 
 
 ### Validar um objeto e obter os erros
@@ -63,8 +67,8 @@ validationContext.validate({
   name: 2,
 });
 
-console.log(validationContext.isValid());
-console.log(validationContext.validationErrors());
+console.log(validationContext.isValid()); //Vê se o dado de "name" está de acordo
+console.log(validationContext.validationErrors()); //Exibe os erros encontrados
 ``` 
 
 ### Validar um modificador MongoDB
@@ -82,11 +86,11 @@ validationContext.validate (
       name: 2, 
     }, 
   }, 
-  {modifier: true} 
+  {modifier: true} //ignora o obj $set e atenta-se ao dado de 'name'
 ); 
 
-console.log (validationContext.isValid ()); 
-console.log (validationContext.validationErrors ()); 
+console.log (validationContext.isValid ()); //o dado 'name' é válido?
+console.log (validationContext.validationErrors ());  //quais os erros?
 ``` 
 
 ### Habilitar reatividade do Meteor Tracker
@@ -125,8 +129,6 @@ Passar em `Tracker` faz com que as seguintes funções se tornem reativas:
 - SimpleSchema#label 
 
 ### Limpe automaticamente o objeto antes de validá-lo 
-
-PARA FAZER 
 
 ### Definir opções padrão para um esquema 
 

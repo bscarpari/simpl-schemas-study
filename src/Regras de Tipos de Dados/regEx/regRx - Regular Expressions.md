@@ -17,21 +17,6 @@ name: {
 }
 ```
 
-## Funções
-
-Em caso de validações mais complexas, também é possível usar uma função para retornar um Array de Expressões Regulares. Importante notar que, neste caso, elas seriam executadas em ordem, e seriam independentes entre si.
-
-O que **não fazer**:
-
-```javascript
-other: {
-    type: String,
-    regEx: () => [/^[a-zA-Z]+$/, /[0-9]/]
-}
-```
-
-O exemplo acima inutilizaria a validação, pois qualquer String que fosse aceita em uma das Expressões Regulares, seria negada na outra.
-
 ## Templates
 
 ### Nome - ```/^[a-zA-Z\sà-úÀ-Ú]+$/```
@@ -53,5 +38,21 @@ Só aceita uma **String** no formato de **email**.
 email: {
     type: String,
     regEx: SimpleSchema.RegEx.EmailWithTLD
+}
+```
+
+### Extra
+
+Existem vários outros variantes de **`SimpleSchema.RegEX`** que retornam outras **Expressões Regulares**. Eles podem ser vistos **[aqui](https://www.npmjs.com/package/simpl-schema#regex)**.
+
+### `skipRegExCheckForEmptyStrings`
+
+Se definido como **`true`**, faz com que **`String`s vazias** sejam **igonoradas** pela Expressão Regular definida no campo.
+
+```javascript
+name: {
+    type: String,
+    regEx: /^[a-zA-Z\sà-úÀ-Ú]+$/,
+    skipRegExCheckForEmptyStrings: true
 }
 ```

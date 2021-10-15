@@ -28,6 +28,8 @@ npm install
 
 ### 2. Use o `require` sempre na 1a linha dos testes:
 
+- **OBS.: ** somente testes com apenas simpl-schema. Testes com meteor é necessário instalar as dependências restantes.
+
 ```
   const SimpleSchema = require("simpl-schema") //nome da instância de acordo com a sua preferência 
 ```

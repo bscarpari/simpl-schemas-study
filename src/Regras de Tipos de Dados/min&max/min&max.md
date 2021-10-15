@@ -8,7 +8,7 @@ Definem o valor mínimo ou máximo a ser aceito em campos do tipo:
 
 ## exclusiveMin & exclusiveMax
 
-Funcionam da mesma forma que **Min** e **Max**, mas não consideram o valor dado como parâmetro.
+Se definidos como `true`, os valores dados como parâmetro em **min** e **max** não seram considerados em uma validação.
 
 **Exemplo:**
 
@@ -26,8 +26,10 @@ Numeros Aceitos: 5, 6, 7, 8, 9, 10
 ```javascript
 randomField: {
     type: SimpleSchema.Integer,
-    exclusiveMin: 5,
-    exclusiveMax: 10
+    min: 5, 
+    max: 10,
+    exclusiveMin: true,
+    exclusiveMax: true
 }
 /*
 Numeros Aceitos: 6, 7, 8, 9

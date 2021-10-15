@@ -45,7 +45,7 @@ email: {
 
 Existem vários outros variantes de **`SimpleSchema.RegEX`** que retornam outras **Expressões Regulares**. Eles podem ser vistos **[aqui](https://www.npmjs.com/package/simpl-schema#regex)**.
 
-### `skipRegExCheckForEmptyStrings`
+## `skipRegExCheckForEmptyStrings`
 
 Se definido como **`true`**, faz com que **`String`s vazias** sejam **igonoradas** pela Expressão Regular definida no campo.
 

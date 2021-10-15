@@ -9,8 +9,8 @@ const person_schema = new SimpleSchema({
     },
     name: {
         type: String,
-        regEx: /^[a-zA-Z\sà-úÀ-Ú]+$/,
-        min: 20 //Expressão Regular que aceita letras, acentos e espaços
+        regEx: /^[a-zA-Z\sà-úÀ-Ú]+$/, //Expressão Regular que aceita letras, acentos e espaços
+        min: 20
     },
 
     /*
